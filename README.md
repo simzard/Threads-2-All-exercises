@@ -21,7 +21,8 @@ One **solution** is to aquire and release the critical ressources in the same or
 
 **b)** See code implementation
 
-**c)** There is a problem with the supplied code: Because pickUpLeftChopstick() and pickUpRightChopstick() are on each their line. Phil. X could invoke pickUpLeftChopstick() while Phil. Y could invoke pikupRightChopStick ... this will make Phil. X unable to putDownChopsticks() and that is also the case with Phil. Y. At some point no philosophers 
-could not put down any of the chopsticks - becuase they only have (at most) one - and they are all waiting for the others to put down the right chopstick.
+**c)** and **d)**: There is a problem with the supplied code: If all 5 philosopher threads call pickUpLeftChopstick() at the same time (which can happen), then all the 5 chopsticks is taken and all the 5 threads will then call pickUpRightChopstick() and they will wait forever in a deadlock. This could maybe be solved with a Waiter object - and then instead of just TAKING the chopsticks, the philosopher should request PERMSSION for a chopstick, and the Waiter should check if the resource(lock) is available - if not, the philosopher should wait patiently, until a chopstick is available. 
 
-A solution could be that you could only pick up BOTH chopsticks or NONE. But then you should always be alowed to put down ONE chopstick. Another solution could be that we should have a waiter - and then a philisopher must request a chopstick and if there's none available right now, the philosopher must wait patiently. I have tried to implement the latter solution. The waiter should then be implemented as trylock() invoactions...
+My solution is a bit different and the poor philosophers might starve because of this: I say the only ONE philosopher can eat at a time, which means I have a static volatile boolean variable that remembers if a philosopher is currently eating. When a philosopher wants to eat, he will pick up both chopsticks and eat and put them down afterwards. Thus causing the remaining 4 philosophers to wait for their turn. It's not a pretty solution, however it runs forever now...
+
+
