@@ -17,13 +17,13 @@ class ResourceUser1 extends Thread {
   public void run() {
     for (int i = 0; i < 100; i++) {
       try {
-        System.out.println(Thread.currentThread().getName()+ " Get resource WORDS");
+        System.out.println(Thread.currentThread().getId()+ "(id): Get resource WORDS");
         List<String> words = resource.getResourceWords();
         words.add("Peter");
         words.add("Kurt");
         words.add("Hanne");
         Thread.sleep(1);//Simulate that using the resource takes som time 
-        System.out.println(Thread.currentThread().getName()+ " Get resource NUMBERS");
+        System.out.println(Thread.currentThread().getId()+ "(id): Get resource NUMBERS");
         List<Integer> numbers = resource.getResourceNumbers();
         numbers.add(1);
         numbers.add(2);
