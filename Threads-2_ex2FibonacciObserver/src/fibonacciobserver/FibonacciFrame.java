@@ -96,7 +96,12 @@ public class FibonacciFrame extends javax.swing.JFrame implements FibonacciObser
   }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-      long no = Long.parseLong(jTextField1.getText());
+      long no = 0;
+      try { no = Long.parseLong(jTextField1.getText());
+      } catch (NumberFormatException ex) {
+          jTextField1.setText("");
+          jTextField5.setText("");
+      }
       jTextField5.setText("");
       startWaitCursor();
       jTextField5.setText("" + fib(no));
